@@ -77,23 +77,9 @@ Root --> Output["📌 Final Detailed Summary"]
 ```
 
 
-
-## 📂 What’s Inside
-
-```
-📁 project/
-├── README.md
-├── multi_agent_pdf_summarizer.ipynb   ← main Colab notebook
-└── sample_papers/                     ← optional PDFs
-```
-
-
-
 ## 🔧 How to Use (Google Colab)
 
-### **Step 1: Open the Notebook**
-
-Click the Colab badge above.
+### **Step 1: Create a copy of the Notebook**
 
 ### **Step 2: Add Your API Key**
 
