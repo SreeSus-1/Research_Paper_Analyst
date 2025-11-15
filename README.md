@@ -150,12 +150,6 @@ response = await runner.run_debug(raw_text)
 
 View the final output:
 
-```python
-print(response[-1].text)
-```
-
-
-
 ## 📌 Output Format
 
 The system generates a **well-structured summary** with:
