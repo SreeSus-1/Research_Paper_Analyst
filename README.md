@@ -1,11 +1,5 @@
 # Research_Paper_Analyst
-A multi-agent system that reads research PDFs, builds context, searches the web, and generates a clear summary
-
-# 📄 Research Analyst Multi-Agent PDF Summarizer
-
-### *Google Colab Notebook — Multi-Agent Workflows using Google ADK + Gemini 2.0*
-
-
+    -A multi-agent system that reads research PDFs, builds context, searches the web, and generates a clear summary
 
 ## 🚀 Overview
 
