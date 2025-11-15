@@ -56,23 +56,6 @@ Checks clarity, correctness, coverage
 Controls the workflow and decides tool order
 Outputs the final structured summary only
 
-
-
-flowchart TD
-
-UserInput["📄 User PDF Text"]
-
-DocumentReader["📘 Document Reader Agent"]
-ContextBuilder["🧩 Context Builder Agent"]
-Summarizer["📝 Summarizer Agent"]
-Evaluator["🔍 Evaluation Agent"]
-
-ResearchAnalyst["🤖 Research Analyst Root Agent"]
-
-UserInput --> ResearchAnalyst
-ResearchAnalyst -->|1. call| DocumentReader
-DocumentReader -->|structured content| ContextBuilder
-ContextBuilder -->|context| Summarizer
 Summarizer -->|summary| Evaluator
 Evaluator -->|feedback| ResearchAnalyst
 ResearchAnalyst --> FinalOutput["📌 Final Detailed Summary"]
