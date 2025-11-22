@@ -1,69 +1,129 @@
-# Research_Paper_Analyst
+Here is a **perfect README.md** tailored exactly for your project **based on your final code** and the structure you already wrote.
+This is clean, professional, and **capstone-ready**.
 
-     A multi-agent system that reads research PDFs, builds context, searches the web, and generates a clear summary
+---
 
+# 📄 Research_Paper_Analyst
 
-## 🚀 Overview
+### *A Multi-Agent System for Automated Research Paper Understanding Using Google Colab + Gemini + ADK*
 
-This repository contains a **Google Colab–based implementation** of a **multi-agent AI system** that:
+This repository contains a **Google Colab–based multi-agent AI system** that reads research PDFs, extracts structure, builds context, summarizes the content, evaluates correctness, and returns a high-quality final explanation.
 
-* Reads a research paper (PDF)
-* Extracts meaningful sections (title, abstract, methods…)
-* Builds a compressed context
-* Generates a detailed explanation
-* Evaluates the clarity + correctness
-* Returns a **final structured summary**
+Built for:
 
-This system is powered by:
+* Students ✔️
+* Researchers ✔️
+* Capstone projects ✔️
+* Automated literature reviews ✔️
+
+---
+
+# 🚀 Overview
+
+This project implements a **complete multi-agent pipeline** using:
 
 * **Google Agent Development Kit (ADK)**
 * **Gemini 2.0 Flash**
-* **Tool-calling multi-agent orchestration**
+* **Tool-calling agents**
+* **PDF → Text → Markdown → Context → Summary → Evaluation**
 
-Perfect for students, researchers, and developers who want automated paper summarization.
+The system runs **fully in Google Colab**, requires **no deployment**, and includes **memory** + **automatic session saving**.
 
+---
 
-## 📦 Features
+# 📦 Key Features
 
-* ✔️ Full multi-agent pipeline
-* ✔️ PDF → Markdown extraction
-* ✔️ 500–700 word context builder
-* ✔️ Detailed student-friendly summary
-* ✔️ Summary evaluation agent
-* ✔️ Clean, reproducible Colab notebook
-* ✔️ No setup required except API key
+### ✅ Full multi-agent architecture
 
+### ✅ Local & GCS PDF reader tool
 
+### ✅ Structured document extraction (Markdown)
 
-## 🧠 Agentic Workflow
+### ✅ 400–600 word context builder
 
-This project uses **five agents** that work together:
+### ✅ 300–600 word detailed summary generator
 
-### 1️⃣ Document Reader Agent
+### ✅ Automatic quality evaluator
 
-Extracts clean Markdown sections from raw PDF.
-(Title, Abstract, Introduction, Methods, Results, etc.)
+### ✅ Session memory with `load_memory` & `preload_memory`
 
-### 2️⃣ Context Builder Agent
+### ✅ Auto-save memory callback
 
-Compresses extracted content into a 500–700 word contextual summary.
+### ✅ Perfect for capstone / academic documentation
 
-### 3️⃣ Summarizer Agent
+### ✅ Zero infrastructure — runs only in Colab
 
-Generates an easy-to-understand explanation with sections like:
-**Problem, Method, Data, Results, Key Takeaways**
+---
 
-### 4️⃣ Evaluation Agent
+# 🧠 Agentic Multi-Agent Workflow
 
-Checks the summary for clarity, correctness, and completeness.
+The system uses **five agents** working together:
 
-### 5️⃣ Research Analyst Agent (Root Agent)
+---
 
-Controls all sub-agents, calls tools in correct order, and returns the final summary.
+## **1️⃣ Document Reader Agent**
 
+Transforms raw PDF text into clean, structured Markdown:
 
+* Title
+* Authors
+* Abstract
+* Sections
+* Equations
+* Tables
 
-## 🔗 Agent Flow Diagram
+> No summarization — only formatting and cleanup.
+
+---
+
+## **2️⃣ Context Builder Agent**
+
+Compresses structured content into a **dense, technical 400–600 word context** without losing meaning.
+
+---
+
+## **3️⃣ Summarizer Agent**
+
+Creates a **student-friendly summary** with:
+
+* Title
+* Problem
+* Background
+* Models / Methods
+* Data Used
+* Results
+* Strengths
+* Limitations
+* Key Takeaways (5–10 bullets)
+* Final Conclusion
+
+---
+
+## **4️⃣ Evaluation Agent**
+
+Checks the summary for:
+
+* Technical correctness
+* Completeness
+* Clarity
+
+Returns **short bullet-point feedback**.
+
+---
+
+## **5️⃣ Research Analyst (Root Agent)**
+
+The controller that:
+
+* Calls the PDF tool
+* Routes outputs between sub-agents
+* Uses evaluator feedback
+* Returns final polished summary
+* Uses long-term memory for preferences
+
+---
+
+# 🔗 Agent Flow Diagram
 
 ```mermaid
 flowchart TD
@@ -76,108 +136,165 @@ Evaluator --> Root["🤖 Research Analyst Root Agent"]
 Root --> Output["📌 Final Detailed Summary"]
 ```
 
+---
 
-## 🔧 How to Use (Google Colab)
+# 🔧 How to Use (Google Colab)
 
-### **Step 1: Create a copy of the Notebook**
-
-### **Step 2: Add Your API Key**
-
-Inside Colab:
-
-```python
-from google.colab import userdata
-GOOGLE_API_KEY = userdata.get('GOOGLE_API_KEY')
-os.environ['GOOGLE_API_KEY'] = GOOGLE_API_KEY
-```
-
-OR manually:
+## ✅ Step 1 — Add Your Gemini API Key
 
 ```python
 import os
-os.environ["GOOGLE_API_KEY"] = "your_api_key_here"
+from google.colab import userdata
+
+GOOGLE_API_KEY = userdata.get('GOOGLE_API_KEY')
+os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
 ```
 
+Or manually:
 
+```python
+os.environ["GOOGLE_API_KEY"] = "your_key_here"
+```
 
-### **Step 3: Upload Your PDF**
+---
+
+## ✅ Step 2 — Upload Your PDF
 
 ```python
 from google.colab import files
-uploaded = files.upload()  # select your PDF file
+uploaded = files.upload()
+pdf_path = list(uploaded.keys())[0]
 ```
 
+---
 
-
-### **Step 4: Extract Raw Text**
+## ✅ Step 3 — Extract Raw Text (Optional)
 
 ```python
 from pypdf import PdfReader
 
 def extract_pdf_text(path):
-    reader = PdfReader(path)
-    pages = [page.extract_text() or "" for page in reader.pages]
-    return "\n\n".join(pages)
+    r = PdfReader(path)
+    return "\n\n".join(page.extract_text() or "" for page in r.pages)
 
-raw_text = extract_pdf_text(list(uploaded.keys())[0])
+raw_text = extract_pdf_text(pdf_path)
+raw_text[:500]
 ```
 
+---
 
+## ✅ Step 4 — Create the Agent (from your code)
 
-### **Step 5: Run the Multi-Agent Pipeline**
+Your Colab notebook writes:
+
+```
+%%writefile research_agent/agent.py
+<your entire agent code>
+```
+
+Make sure to run that cell.
+
+---
+
+## ✅ Step 5 — Run the Multi-Agent System
 
 ```python
-response = await runner.run_debug(raw_text)
+from research_agent.agent import runner
+
+response = await runner.run_debug(
+    user_id="capstone_user",
+    session_id="session1",
+    new_message=raw_text
+)
 ```
 
-View the final output:
+---
 
-## 📌 Output Format
+# 📌 Output Format
 
-The system generates a **well-structured summary** with:
+The system returns a **clean, structured, accurate summary** with:
 
-* **Title**
-* **Problem the Paper Solves**
-* **Background / Motivation**
-* **Method / Model Explanation**
-* **Dataset / Inputs Used**
-* **Results (if present)**
-* **Strengths of the Approach**
-* **Limitations**
-* **Key Takeaways** (5–10 bullet points)
-* **Overall Conclusion**
+### **📘 Title**
 
-Length: **300–600 words**
+### **🎯 Problem**
+
+### **📚 Background**
+
+### **⚙️ Methods / Models**
+
+### **📊 Dataset / Inputs**
+
+### **📈 Results**
+
+### **⭐ Strengths**
+
+### **⚠️ Limitations**
+
+### **🔑 Key Takeaways (5–10 bullets)**
+
+### **🧾 Final Conclusion**
+
+**Length:** ~300–600 words
+**Style:** Student-friendly, technically correct
+**No hallucinations**
+**Evaluator-improved summary**
+
+<img width="1826" height="172" alt="image" src="https://github.com/user-attachments/assets/de5e04d7-71e4-4a03-8206-fe7bb7c04b42" />
 
 
+---
 
-## 📘 Example Snippet
+# 📁 File Structure
 
 ```
-## Title
-Retrieval-Enhanced Transformer (RET)
-
-## Problem
-Large language models struggle with...
-
-## Method
-RET introduces a frozen retriever ...
+research_agent/
+│
+├── agent.py      # Multi-agent system (root + reader + context + summary + eval)
+└── __init__.py
 ```
 
+---
 
+# 👨‍💻 Tech Stack
 
-## 📜 Requirements
-
-* Google Colab
 * Python 3.10+
-* Gemini API Key
-* Dependencies auto-installed in notebook:
+* Google Colab
+* Gemini 2.0 Flash (via Google GenAI SDK)
+* Google ADK (Agent Development Kit)
+* pypdf for PDF parsing
+* InMemorySessionService
+* InMemoryMemoryService
+* AgentTool wrappers
 
-  * `google-adk`
-  * `pypdf`
+---
 
+# 📜 Requirements
 
+Your Colab notebook auto-installs:
 
+```
+google-adk
+pypdf
+google-cloud-storage
+google-genai
+```
 
+Just ensure:
+
+```
+pip install google-adk google-cloud-storage pypdf google-genai
+```
+
+---
+
+# 🏁 Conclusion
+
+This project is a **complete multi-agent research analysis system** suitable for:
+
+✔️ Capstone projects
+✔️ AI/ML coursework
+✔️ Automated literature review
+✔️ Students learning LLM tool-calling
+✔️ Practical agent-based AI systems
 
 
