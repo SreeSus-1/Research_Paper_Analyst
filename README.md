@@ -1,8 +1,3 @@
-Here is a **perfect README.md** tailored exactly for your project **based on your final code** and the structure you already wrote.
-This is clean, professional, and **capstone-ready**.
-
----
-
 # 📄 Research_Paper_Analyst
 
 ### *A Multi-Agent System for Automated Research Paper Understanding Using Google Colab + Gemini + ADK*
